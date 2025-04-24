@@ -1,0 +1,19 @@
+{
+    "name": "joaomaia/mautic-whatsapp-evolution-bundle",
+    "description": "Plugin to send Mautic campaigns to Whatsapp numbers through Evolution API",
+    "type": "mautic-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "João Vitor Maia",
+            "email": "maia.tostring@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mautic/core-lib": "^6.0"
+    },
+    "extra": {
+        "install-directory-name": "MauticWhatsAppEvolutionBundle"
+    }
+}
