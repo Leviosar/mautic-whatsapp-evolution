@@ -14,7 +14,8 @@ return [
             'mautic.integration.whatsapp_evolution' => [
                 'class' => WhatsAppEvolutionIntegration::class,
                 'tags' => [
-                    'mautic.integration'
+                    'mautic.integration',
+                    'mautic.config_integration',
                 ]
             ]
         ],
@@ -25,7 +26,7 @@ return [
             ]
         ],
         'other' => [
-            'mautic.sms.transport.whatsapp_evolution' => [
+            'mautic.whatsapp.transport.evolution' => [
                 'class' => \MauticPlugin\MauticWhatsAppEvolutionBundle\Transport\WhatsAppEvolutionTransport::class,
                 'arguments' => [
                     'monolog.logger.mautic',
@@ -33,18 +34,19 @@ return [
                         'api_url' => '%mautic.whatsapp_evolution_api_url%',
                         'api_key' => '%mautic.whatsapp_evolution_api_key%',
                         'instance_id' => '%mautic.whatsapp_evolution_instance_id%',
-                        'default_from' => '%mautic.whatsapp_evolution_default_from%'
                     ]
                 ],
-                'tag' => 'mautic.sms_transport',
+                'tag' => 'mautic.whatsapp_transport',
                 'tagArguments' => [
-                    'integrationAlias' => 'WhatsAppEvolution'
+                    'integrationAlias' => 'WhatsAppEvolution',
+                    'integrationAliasOverride' => 'whatsapp_evolution',
+                    'transportName' => 'WhatsApp Evolution'
                 ]
             ],
             'mautic.whatsapp_evolution.event_subscriber' => [
                 'class' => \MauticPlugin\MauticWhatsAppEvolutionBundle\Event\WhatsAppSubscriber::class,
                 'arguments' => [
-                    'mautic.sms.transport.whatsapp_evolution',
+                    'mautic.whatsapp.transport.evolution',
                     'mautic.helper.core_parameters'
                 ],
                 'tags' => ['kernel.event_subscriber']
@@ -53,10 +55,9 @@ return [
     ],
     
     'parameters' => [
-        'whatsapp_evolution_enabled' => false,
+        'whatsapp_evolution_enabled' => true,
         'whatsapp_evolution_api_url' => '',
         'whatsapp_evolution_api_key' => '',
         'whatsapp_evolution_instance_id' => '',
-        'whatsapp_evolution_default_from' => ''
     ]
 ];

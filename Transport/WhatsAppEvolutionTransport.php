@@ -3,12 +3,10 @@
 namespace MauticPlugin\MauticWhatsAppEvolutionBundle\Transport;
 
 use Mautic\LeadBundle\Entity\Lead;
-use Mautic\SmsBundle\Sms\TransportInterface;
-use Symfony\Component\HttpFoundation\Response;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 
-class WhatsAppEvolutionTransport implements TransportInterface
+class WhatsAppEvolutionTransport
 {
     private $logger;
     private $config;
@@ -24,7 +22,7 @@ class WhatsAppEvolutionTransport implements TransportInterface
         ];
     }
 
-    public function sendSms(Lead $lead, $content)
+    public function send(Lead $lead, $content)
     {
         $phone = $lead->getLeadPhoneNumber();
         
@@ -45,13 +43,7 @@ class WhatsAppEvolutionTransport implements TransportInterface
 
         $payload = [
             'number' => $this->formatPhoneNumber($phone),
-            'options' => [
-                'delay' => 1200,
-                'presence' => 'composing'
-            ],
-            'textMessage' => [
-                'text' => $content
-            ]
+            'text' => $content
         ];
 
         if (!empty($this->config['instance_id'])) {
@@ -59,7 +51,7 @@ class WhatsAppEvolutionTransport implements TransportInterface
         }
 
         try {
-            $response = $client->post('/message/sendText', [
+            $response = $client->post('/message/sendText/' . $this->config['instance_id'], [
                 'json' => $payload
             ]);
 

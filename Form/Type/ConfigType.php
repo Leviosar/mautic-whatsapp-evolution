@@ -16,7 +16,7 @@ class ConfigType extends AbstractType
             'api_url',
             UrlType::class,
             [
-                'label' => 'mautic.whatsapp_evolution.api_url',
+                'label' => 'API URL',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
@@ -29,7 +29,7 @@ class ConfigType extends AbstractType
             'api_key',
             PasswordType::class,
             [
-                'label' => 'mautic.whatsapp_evolution.api_key',
+                'label' => 'API Key',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
@@ -39,7 +39,7 @@ class ConfigType extends AbstractType
         );
 
         $builder->add(
-            'instance_id',
+            'Instance Name (not ID)',
             TextType::class,
             [
                 'label' => 'mautic.whatsapp_evolution.instance_id',
@@ -47,19 +47,6 @@ class ConfigType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Your WhatsApp instance ID'
-                ]
-            ]
-        );
-
-        $builder->add(
-            'default_from',
-            TextType::class,
-            [
-                'label' => 'mautic.whatsapp_evolution.default_from',
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Default sender name'
                 ]
             ]
         );

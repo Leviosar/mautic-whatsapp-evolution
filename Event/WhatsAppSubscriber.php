@@ -6,7 +6,8 @@ use Mautic\CampaignBundle\CampaignEvents;
 use Mautic\CampaignBundle\Event\CampaignBuilderEvent;
 use Mautic\CampaignBundle\Event\CampaignExecutionEvent;
 use Mautic\CoreBundle\Helper\CoreParametersHelper;
-use Mautic\SmsBundle\SmsEvents;
+use MauticPlugin\MauticWhatsAppEvolutionBundle\Form\Type\MessageType;
+use MauticPlugin\MauticWhatsAppEvolutionBundle\MauticWhatsappEvolutionEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use MauticPlugin\MauticWhatsAppEvolutionBundle\Transport\WhatsAppEvolutionTransport;
 
@@ -25,7 +26,7 @@ class WhatsAppSubscriber implements EventSubscriberInterface
     {
         return [
             CampaignEvents::CAMPAIGN_ON_BUILD => ['onCampaignBuild', 0],
-            SmsEvents::ON_CAMPAIGN_TRIGGER_ACTION => ['onCampaignTriggerAction', 0]
+            MauticWhatsappEvolutionEvents::ON_CAMPAIGN_TRIGGER_ACTION => ['onCampaignTriggerAction', 0]
         ];
     }
 
@@ -37,12 +38,9 @@ class WhatsAppSubscriber implements EventSubscriberInterface
                 [
                     'label' => 'Send WhatsApp message',
                     'description' => 'Send a WhatsApp message to contacts via Evolution API',
-                    'eventName' => SmsEvents::ON_CAMPAIGN_TRIGGER_ACTION,
-                    'formType' => \Mautic\SmsBundle\Form\Type\SmsSendType::class,
-                    'formTypeOptions' => [
-                        'update_select' => 'campaignevent_properties_channelId',
-                        'with_email_types' => false
-                    ],
+                    'eventName' => MauticWhatsappEvolutionEvents::ON_CAMPAIGN_TRIGGER_ACTION,
+                    'formType' => MessageType::class,
+                    'formTypeOptions' => [],
                     'channel' => 'whatsapp',
                     'channelIdField' => 'channelId'
                 ]
@@ -55,7 +53,7 @@ class WhatsAppSubscriber implements EventSubscriberInterface
         $lead = $event->getLead();
         $content = $event->getConfig()['message'];
 
-        if ($this->transport->sendSms($lead, $content)) {
+        if ($this->transport->send($lead, $content)) {
             $event->setResult(true);
         } else {
             $event->setFailed('Failed to send WhatsApp message');
