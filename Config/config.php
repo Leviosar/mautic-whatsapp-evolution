@@ -3,7 +3,7 @@
 return [
     'name' => 'WhatsApp Evolution',
     'description' => 'Enables WhatsApp messaging via Evolution API 2.x',
-    'version' => '1.0',
+    'version' => '1.0.1',
     'author' => 'João Vitor Maia <maia.tostring@gmail.com',
     'parameters' => [
         'whatsapp_evolution_enabled' => true,
