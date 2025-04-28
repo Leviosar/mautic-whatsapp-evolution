@@ -14,14 +14,16 @@ return [
         'whatsapp_evolution_instance_id' => '',
     ],
     'services' => [
-        'mautic.integration.whatsapp' => [
-            'class' => WhatsAppEvolutionIntegration::class,
-            'tags'      => [
-                'mautic.integration',
-                'mautic.basic_integration',
-                'mautic.config_integration',
-                'mautic.auth_integration',
+        'integrations' => [
+            'mautic.integration.whatsapp' => [
+                'class' => WhatsAppEvolutionIntegration::class,
+                'tags' => [
+                    'mautic.integration',
+                    'mautic.basic_integration',
+                    'mautic.config_integration',
+                    'mautic.auth_integration',
+                ],
             ],
-        ]
+        ],
     ]
 ];
