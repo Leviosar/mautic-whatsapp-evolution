@@ -11,10 +11,9 @@ return [
     
     'services' => [
         'integrations' => [
-            'mautic.integration.whatsapp_evolution' => [
+            'whatsapp_evolution.integration' => [
                 'class' => WhatsAppEvolutionIntegration::class,
                 'tags' => [
-                    'mautic.integration',
                     'mautic.config_integration',
                 ]
             ]

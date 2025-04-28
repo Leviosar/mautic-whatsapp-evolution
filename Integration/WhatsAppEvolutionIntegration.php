@@ -5,14 +5,12 @@ namespace MauticPlugin\MauticWhatsAppEvolutionBundle\Integration;
 use Mautic\IntegrationsBundle\Integration\BasicIntegration;
 use Mautic\IntegrationsBundle\Integration\ConfigurationTrait;
 use Mautic\IntegrationsBundle\Integration\Interfaces\BasicInterface;
-use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormAuthInterface;
 use Mautic\IntegrationsBundle\Integration\Interfaces\ConfigFormInterface;
 use Mautic\IntegrationsBundle\Integration\DefaultConfigFormTrait;
 use MauticPlugin\MauticWhatsAppEvolutionBundle\Form\Type\ConfigType;
 
-class WhatsAppEvolutionIntegration extends BasicIntegration implements BasicInterface, ConfigFormInterface, ConfigFormAuthInterface
+class WhatsAppEvolutionIntegration extends BasicIntegration implements BasicInterface, ConfigFormInterface
 {
-    use DefaultConfigFormTrait;
     use ConfigurationTrait;
 
     public const NAME = 'WhatsAppEvolution';
@@ -30,16 +28,18 @@ class WhatsAppEvolutionIntegration extends BasicIntegration implements BasicInte
 
     public function getIcon(): string
     {
-        return 'fa-whatsapp';
+        return 'plugins/MauticWhatsAppEvolutionBundle/Assets/img/evolution-logo.png';
     }
 
-    public function getConfigFormName(): string
+    public function getConfigFormName(): string | null
     {
+        return null;
         return ConfigType::class;
     }
 
-    public function getAuthConfigFormName(): string
+    public function getConfigFormContentTemplate(): string | null
     {
-        return ConfigType::class;
+        return null;
+        return '@MauticPluginWhatsAppEvolution/Integration/config_form.html.php';
     }
 }
