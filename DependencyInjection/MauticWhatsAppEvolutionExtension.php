@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
-class MauticWhatsAppEvolutionBundleExtension extends Extension
+class MauticWhatsAppEvolutionExtension extends Extension
 {
     /**
      * @param mixed[] $configs
