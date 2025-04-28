@@ -4,21 +4,31 @@ namespace MauticPlugin\MauticWhatsAppEvolutionBundle\Transport;
 
 use Mautic\LeadBundle\Entity\Lead;
 use GuzzleHttp\Client;
+use Mautic\IntegrationsBundle\Helper\IntegrationsHelper;
+use MauticPlugin\MauticWhatsAppEvolutionBundle\Integration\WhatsAppEvolutionIntegration;
 use Psr\Log\LoggerInterface;
 
 class WhatsAppEvolutionTransport
 {
     private $logger;
+
     private $config;
 
-    public function __construct(LoggerInterface $logger, array $config)
+    public function __construct(
+        LoggerInterface $logger,
+        IntegrationsHelper $integrationsHelper
+    )
     {
         $this->logger = $logger;
+
+        $integration = $integrationsHelper->getIntegration(WhatsAppEvolutionIntegration::NAME);
+        
+        $keys = $integration->getIntegrationConfiguration()->getApiKeys();
+
         $this->config = [
-            'api_url' => $config['api_url'],
-            'api_key' => $config['api_key'],
-            'instance_id' => $config['instance_id'],
-            'default_from' => $config['default_from'] ?? null
+            'api_url' => $keys['api_url'],
+            'api_key' => $keys['api_key'],
+            'instance_id' => $keys['instance_id'],
         ];
     }
 
